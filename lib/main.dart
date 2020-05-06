@@ -27,7 +27,17 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class BodyPage extends StatelessWidget {
+class BodyPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _BodyPageState();
+  }
+}
+
+class _BodyPageState extends State<BodyPage> {
+  List<String> _products = ['Food Tester'];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,17 +45,26 @@ class BodyPage extends StatelessWidget {
         Container(
           margin: EdgeInsets.all(10.0),
           child: RaisedButton(
-            onPressed: () {}, 
-            child: Text('Add Product')
-            ),
+            onPressed: () {
+              setState(() {
+                         _products.add('Advanced Food Tester');
+              });
+          }, 
+          child: Text('Add Product')),
         ),
-        Card(
-          child: Column(
-            children: <Widget>[
-              Image.asset('assets/food.jpg'),
-              Text('Food Paradise')
-            ],
-          ),
+        Column(
+          children: _products
+              .map(
+                (element) => Card(
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset('assets/food.jpg'),
+                      Text(element)
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
         ),
       ],
     );
